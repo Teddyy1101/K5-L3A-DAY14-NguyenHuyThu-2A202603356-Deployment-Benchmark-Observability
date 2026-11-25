@@ -125,7 +125,9 @@ Content-Type: application/json
 
 ### Exercise 3.2 — Cấu hình Render
 
-Blueprint đặt Web Service `day14-agent` và Key Value `day14-redis` trên gói Free tại Singapore. Agent build từ Dockerfile của `06-lab-complete/`. Render lấy URL Redis nội bộ qua `fromService`, kiểm tra `/health` và yêu cầu điền `AGENT_API_KEY` khi tạo Blueprint. [Blueprint Render](06-lab-complete/render.yaml)
+Agent Part 6 đang chạy trên Render. Kiểm tra từ URL public cho kết quả `/health` **200**, `/ready` **200**, `POST /ask` thiếu key **401**, và có key **200**. [URL public](https://day14-agent-la98.onrender.com) · [Kết quả kiểm tra](DEPLOYMENT.md)
+
+Render đặt tên Web Service `day14-agent-la98` và Key Value `day14-redis-la98` trên gói Free tại Singapore. Agent build từ Dockerfile của `06-lab-complete/`. Render lấy URL Redis nội bộ qua `fromService`, kiểm tra `/health` và nhận `AGENT_API_KEY` trong lúc triển khai. [Blueprint Render](06-lab-complete/render.yaml)
 
 | Mục | Railway | Render |
 | --- | --- | --- |
@@ -251,7 +253,7 @@ Dockerfile dùng hai stage, base image slim và user non-root. Compose đặt ag
 
 ### Kết quả bộ chấm
 
-Chạy nguyên bản `python check_production_ready.py` trong `06-lab-complete/` trên Ubuntu/WSL2 với Docker 28.3.0. Image đo được **63 MB**, `docker stop` hoàn tất trong **1,3 giây**, exit code **0**. Kiểm tra runtime xác nhận rate limit vẫn còn sau khi restart agent, budget nhỏ trả 402 và SIGTERM vẫn cho request đang chạy trả 200.
+Chạy lại nguyên bản `python check_production_ready.py` ngày 25/11/2026 trong `06-lab-complete/` trên Ubuntu/WSL2 với Docker 28.3.0. Image đo được **63 MB**, `docker stop` hoàn tất trong **1,2 giây**, exit code **0**. Kiểm tra runtime xác nhận rate limit vẫn còn sau khi restart agent, budget nhỏ trả 402 và SIGTERM vẫn cho request đang chạy trả 200.
 
 ```text
   📋 Checklist Deliverable
@@ -268,7 +270,7 @@ Chạy nguyên bản `python check_production_ready.py` trong `06-lab-complete/`
      ✅ Graceful shutdown
      ✅ Public URL ready (Railway / Render config)
 ----------------------------------------------------------------
-  Result: 12/12 tiêu chí đạt · 41/41 checks passed
+  Result: 12/12 tiêu chí đạt · 43/43 checks passed
   🎉 PASS 12/12 — PRODUCTION READY! Deploy nào!
 ```
 
